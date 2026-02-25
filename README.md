@@ -6,7 +6,7 @@ A single tap for all `rayvn` projects. On `rayvn release <my-project>`, the proj
 To enable `brew` access to all Rayvn Central projects, just run the `brew tap` command with this repository:
 
 ```bash
-$ brew tap rayvn-central/homebrew-tap
+$ brew tap rayvn-central/brew
 ```
 
 

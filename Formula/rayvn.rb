@@ -2,7 +2,7 @@ class Rayvn < Formula
   desc "rayvn - A shared library ecosystem for bash 5.3+."
   homepage "https://github.com/phoggy/rayvn"
   url "https://github.com/phoggy/rayvn/archive/refs/tags/v0.3.0.tar.gz"
-  sha256 "08a804e02144ab394d00db6fa7fb3a7fdde94aa3b2af165e24caad02912c4aa8"
+  sha256 "b49bb7750c8d77b58da89d3c3eecb516e9c17449323e9a08c0646bb004e021ab"
   license "GPL-3.0-only"
 
   depends_on "bash"

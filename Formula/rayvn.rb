@@ -1,8 +1,8 @@
 class Rayvn < Formula
   desc "rayvn - A shared library ecosystem for bash 5.3+."
   homepage "https://github.com/phoggy/rayvn"
-  url "https://github.com/phoggy/rayvn/archive/refs/tags/v0.3.1.tar.gz"
-  sha256 "6937b694bdd4d9e3caffb3300092ad9a35e4699d540b14098f79b203644178e8"
+  url "https://github.com/phoggy/rayvn/archive/refs/tags/v0.3.2.tar.gz"
+  sha256 "9bf15bf7af58973157f0cb64ab3841d9d8501823d3112df7480b5f6e549d24a5"
   license "GPL-3.0-only"
 
   depends_on "bash"
@@ -12,8 +12,6 @@ class Rayvn < Formula
   depends_on "curl"
   depends_on "jq"
   depends_on "asciinema"
-  depends_on "bundler"
-  depends_on "jekyll"
   depends_on "expect"
 
   def install

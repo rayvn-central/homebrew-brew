@@ -1,8 +1,8 @@
 class Rayvn < Formula
   desc "rayvn - A shared library ecosystem for bash 5.3+."
   homepage "https://github.com/phoggy/rayvn"
-  url "https://github.com/phoggy/rayvn/archive/refs/tags/v0.3.2.tar.gz"
-  sha256 "9bf15bf7af58973157f0cb64ab3841d9d8501823d3112df7480b5f6e549d24a5"
+  url "https://github.com/phoggy/rayvn/archive/refs/tags/v0.4.0.tar.gz"
+  sha256 "c2772841d813b5587070c89fdd1df1c60da42d5a09b32e507991bc33f82e6837"
   license "GPL-3.0-only"
 
   depends_on "bash"
@@ -13,6 +13,7 @@ class Rayvn < Formula
   depends_on "jq"
   depends_on "asciinema"
   depends_on "expect"
+  depends_on "bash-completion@2"
 
   def install
     bin.install "bin/rayvn"
@@ -21,6 +22,7 @@ class Rayvn < Formula
     (share/"rayvn"/"templates").install Dir["templates/*"]
     (share/"rayvn"/"etc").install Dir["etc/*"]
     (share/"rayvn").install "rayvn.pkg"
+    bash_completion.install "completions/rayvn.bash" => "rayvn"
   end
 
   test do

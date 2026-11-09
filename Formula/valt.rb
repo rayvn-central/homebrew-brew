@@ -6,7 +6,7 @@ class Valt < Formula
   license "GPL-3.0-only"
 
   depends_on "bash"
-  depends_on "phoggy/rayvn/rayvn"
+  depends_on "rayvn-central/brew/rayvn"
   depends_on "age"
   depends_on "gawk"
   depends_on "gnu-sed"

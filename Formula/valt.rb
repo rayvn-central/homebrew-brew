@@ -1,8 +1,8 @@
 class Valt < Formula
   desc "Public key file encryption using rage/age"
   homepage "https://github.com/phoggy/valt"
-  url "https://github.com/phoggy/valt/archive/refs/tags/v0.3.0.tar.gz"
-  sha256 "e70ba0749e4966da1f89aee6a057cee913f26de8ea12125bd6a01601fdb545a3"
+  url "https://github.com/phoggy/valt/archive/refs/tags/v0.3.1.tar.gz"
+  sha256 "75b998c63fe708bdffc88e98bb6cfeb0133a220256e272ad7ddd6df3b158dff7"
   license "GPL-3.0-only"
 
   depends_on "bash"

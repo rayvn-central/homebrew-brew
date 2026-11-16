@@ -1,8 +1,8 @@
 class Wardn < Formula
   desc "Encrypted Bitwarden vault backup and restore using Age encryption"
   homepage "https://github.com/phoggy/wardn"
-  url "https://github.com/phoggy/wardn/archive/refs/tags/v0.2.2.tar.gz"
-  sha256 "9f7e5489675b0694de789d79473ed263a19a9d6e3b572c9597904006112a20f4"
+  url "https://github.com/phoggy/wardn/archive/refs/tags/v0.2.3.tar.gz"
+  sha256 "a9846c10011ea1f1e9b6e8d1a8813700456dba6f58601905d84745bd9346190a"
   license "GPL-3.0-only"
 
   depends_on "bash"

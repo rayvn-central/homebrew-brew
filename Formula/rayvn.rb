@@ -1,8 +1,8 @@
 class Rayvn < Formula
   desc "Libraries and tools to build, test, document and release bash 5.3+ programs"
   homepage "https://github.com/phoggy/rayvn"
-  url "https://github.com/phoggy/rayvn/archive/refs/tags/v0.5.3.tar.gz"
-  sha256 "688fdd562d791a76e990276bf1d62c4ac3019971b816413962eab874f4747ab4"
+  url "https://github.com/phoggy/rayvn/archive/refs/tags/v0.5.4.tar.gz"
+  sha256 "2435395d1f3d84e0e213fab900a4844f306e0a4559ddbf9c2ff3dc1512910375"
   license "GPL-3.0-only"
 
   depends_on "bash"

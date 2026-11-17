@@ -1,8 +1,8 @@
 class Valt < Formula
-  desc "Public key file encryption using rage/age"
+  desc "Public key encryption for files and archives, using age and minisign"
   homepage "https://github.com/phoggy/valt"
-  url "https://github.com/phoggy/valt/archive/refs/tags/v0.3.2.tar.gz"
-  sha256 "e88415332011442ba8f30b5176000bc666eb6c28dd4039f1c3b3cfe4e2a1bb23"
+  url "https://github.com/phoggy/valt/archive/refs/tags/v0.3.3.tar.gz"
+  sha256 "ac210d6bde56f0f816db75c3f3e78a2835dd8c91fe6a0af62b660f7f7633cdee"
   license "GPL-3.0-only"
 
   depends_on "bash"
@@ -24,15 +24,8 @@ class Valt < Formula
     (share/"valt"/"lib").install Dir["lib/*.sh"]
     (share/"valt"/"etc").install Dir["etc/*"]
     (share/"valt").install "rayvn.pkg"
-
-    # Install puppeteer + its bundled Chromium directly into ~/.config/valt/node-js/.
-    node_js_dir = Pathname.new(Dir.home)/".config"/"valt"/"node-js"
-    node_js_dir.mkpath
-    (node_js_dir/"package.json").write((buildpath/"etc/package.json").read)
-    (node_js_dir/"package-lock.json").write((buildpath/"etc/package-lock.json").read)
-    Dir.chdir(node_js_dir) do
-      system "npm", "ci", "--production"
-    end
+    bash_completion.install "completions/valt.bash" => "valt"
+    zsh_completion.install "completions/valt.zsh" => "_valt"
   end
 
   test do

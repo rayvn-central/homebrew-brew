@@ -26,7 +26,7 @@ jobs:
         run: |
           latest=$(gh release view --repo sts10/phraze --json tagName --jq .tagName)
           latest=${latest#v}
-          current=$(grep -m1 -E '^  version "' "${FORMULA}" | cut -d '"' -f 2)
+          current=$(grep -m1 -oE 'download/v[^/]+/' "${FORMULA}" | cut -d / -f 2); current=${current#v}
           echo "current ${current}, latest ${latest}"
           echo "latest=${latest}" >> "${GITHUB_OUTPUT}"
           [[ ${latest} != "${current}" ]] && echo "update=1" >> "${GITHUB_OUTPUT}" || true
@@ -40,7 +40,7 @@ jobs:
           mkdir sums
           gh release download "v${VERSION}" --repo sts10/phraze --dir sums --pattern '*.tar.xz.sha256'
           gawk -v version="${VERSION}" -v sums=sums '
-              /^  version "/ { sub(/"[^"]*"/, "\"" version "\"") }
+              /^ *url "/ { sub(/download\/v[^/]+\//, "download/v" version "/") }
               /^ *url "/ { match($0, /phraze-[^"]+\.tar\.xz/); asset = substr($0, RSTART, RLENGTH) }
               /^ *sha256 "/ && asset != "" {
                   file = sums "/" asset ".sha256"
@@ -60,7 +60,7 @@ jobs:
           brew tap rayvn-central/tap
           brew trust --tap rayvn-central/tap
           cp "${FORMULA}" "$(brew --repository rayvn-central/tap)/${FORMULA}"
-          brew audit --formula rayvn-central/tap/phraze || true
+          brew audit --formula rayvn-central/tap/phraze
           brew install rayvn-central/tap/phraze
           brew test rayvn-central/tap/phraze
 

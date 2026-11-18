@@ -6,8 +6,8 @@ class Wardn < Formula
   license "GPL-3.0-only"
 
   depends_on "bash"
-  depends_on "rayvn-central/brew/rayvn"
-  depends_on "rayvn-central/brew/valt"
+  depends_on "rayvn-central/tap/rayvn"
+  depends_on "rayvn-central/tap/valt"
   depends_on "jq"
   depends_on "age"
   depends_on "gawk"

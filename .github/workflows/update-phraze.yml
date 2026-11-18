@@ -1,0 +1,75 @@
+# Keeps Formula/phraze.rb on the latest sts10/phraze release: when there is a newer one, updates the version and
+# checksums, installs and tests the formula, and commits it.
+
+name: Update phraze
+
+on:
+  schedule:
+    - cron: '17 9 * * 1' # Mondays
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: macos-15
+    timeout-minutes: 20
+    env:
+      GH_TOKEN: ${{ github.token }}
+      FORMULA: Formula/phraze.rb
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check for a newer release
+        id: check
+        run: |
+          latest=$(gh release view --repo sts10/phraze --json tagName --jq .tagName)
+          latest=${latest#v}
+          current=$(grep -m1 -E '^  version "' "${FORMULA}" | cut -d '"' -f 2)
+          echo "current ${current}, latest ${latest}"
+          echo "latest=${latest}" >> "${GITHUB_OUTPUT}"
+          [[ ${latest} != "${current}" ]] && echo "update=1" >> "${GITHUB_OUTPUT}" || true
+
+      - name: Update the version and checksums
+        if: steps.check.outputs.update
+        env:
+          VERSION: ${{ steps.check.outputs.latest }}
+        run: |
+          brew install gawk
+          mkdir sums
+          gh release download "v${VERSION}" --repo sts10/phraze --dir sums --pattern '*.tar.xz.sha256'
+          gawk -v version="${VERSION}" -v sums=sums '
+              /^  version "/ { sub(/"[^"]*"/, "\"" version "\"") }
+              /^ *url "/ { match($0, /phraze-[^"]+\.tar\.xz/); asset = substr($0, RSTART, RLENGTH) }
+              /^ *sha256 "/ && asset != "" {
+                  file = sums "/" asset ".sha256"
+                  if ((getline line < file) <= 0) { print "missing checksum: " file > "/dev/stderr"; exit 1 }
+                  split(line, fields, " ")
+                  sub(/"[^"]*"/, "\"" fields[1] "\"")
+                  asset = ""
+              }
+              { print }
+          ' "${FORMULA}" > phraze.rb.new
+          mv phraze.rb.new "${FORMULA}"
+          git diff
+
+      - name: Install and test
+        if: steps.check.outputs.update
+        run: |
+          brew tap rayvn-central/tap
+          brew trust --tap rayvn-central/tap
+          cp "${FORMULA}" "$(brew --repository rayvn-central/tap)/${FORMULA}"
+          brew audit --formula rayvn-central/tap/phraze || true
+          brew install rayvn-central/tap/phraze
+          brew test rayvn-central/tap/phraze
+
+      - name: Commit
+        if: steps.check.outputs.update
+        env:
+          VERSION: ${{ steps.check.outputs.latest }}
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -am "Update phraze to ${VERSION}"
+          git push

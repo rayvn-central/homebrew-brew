@@ -1,8 +1,8 @@
 class Valt < Formula
   desc "Public key encryption for files and archives, using age and minisign"
   homepage "https://github.com/phoggy/valt"
-  url "https://github.com/phoggy/valt/archive/refs/tags/v0.3.4.tar.gz"
-  sha256 "ac5a9be5e237adfd07c4f5e96d16417f446e572a3057d6dc2366b86d29e04f2e"
+  url "https://github.com/phoggy/valt/archive/refs/tags/v0.3.5.tar.gz"
+  sha256 "9eb6a1ed9108b26e63661127f5611c2bf051bfdb0c9c7025ff736c760edccc5d"
   license "GPL-3.0-only"
 
   depends_on "bash"
